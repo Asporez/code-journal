@@ -1,24 +1,24 @@
 # 1. Methods Index
    - TODO
 
-# 2. Geometry Theorems:
-   - [Separating Axis Theorem](#-0.-Key-Concepts-of-SAT)
-   - [Bresenham Lines](##0.1-Key-Concepts-of-Bresenham's-Line-Algorithm)
-   - [Pythagorean Theorem](##1.-**Pythagorean-Theorem**)
-   - [Triangle Inequality Theorem](##2.-**Triangle-Inequality-Theorem**)
-   - [Midpoint Theorem](##3.-**Midpoint-Theorem**)
-   - [Dot Product](##4.-**Dot-Product**)
-   - [Cross Product](##5.-**Cross-Product**)
-   - [Convex Hull](##6-Convex-Hull)
-   - [Voronoi Diagrams](##7.-Voronoi-Diagrams)
-   - [Pathfinding Algorithms](##8.-Pathfinding-Algorithms)
-   - [Bézier Curves](##9.-Bézier-Curves)
-   - [Circle-Line Intersections](##10.-Circle-Line-Intersections)
-   - [Geometry Tranformations](##11.-Geometric-Transformations)
-   - [Simplex Algorithm](##12.-Simplex-Algorithm)
-   - [Raycasting](##13.-Raycasting)
-   - [Polygon Clipping Algorithm](##14.-Polygon-Clipping-Algorithms)
-   - [Basic Statistics Algorithsm](##15.-Basic-Statistics-Algorithms)
+# 2. Math Theorems
+- [Separating Axis Theorem](#key-concepts-of-sat)
+- [Bresenham Lines](#key-concepts-of-bresenhams-line-algorithm)
+- [Pythagorean Theorem](#pythagorean-theorem)
+- [Triangle Inequality Theorem](#triangle-inequality-theorem)
+- [Midpoint Theorem](#midpoint-theorem)
+- [Dot Product](#dot-product)
+- [Cross Product](#cross-product)
+- [Convex Hull](#convex-hull)
+- [Voronoi Diagrams](#voronoi-diagrams)
+- [Pathfinding Algorithms](#pathfinding-algorithms)
+- [Bézier Curves](#bezier-curves)
+- [Circle-Line Intersections](#circle-line-intersections)
+- [Geometric Transformations](#geometric-transformations)
+- [Simplex Algorithm](#simplex-algorithm)
+- [Raycasting](#raycasting)
+- [Polygon Clipping Algorithms](#polygon-clipping-algorithms)
+- [Basic Statistics Algorithms](#basic-statistics-algorithms)
 
 
 
