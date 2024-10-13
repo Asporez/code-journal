@@ -711,7 +711,7 @@ This approach keeps your system flexible, allowing you to easily add more collis
 This setup gives you the flexibility to scale your system, add new types of entities, and handle various collision scenarios. Let me know if you'd like to dive into more advanced topics, such as polygon collisions or more specific examples for gameplay mechanics!
 
 
-## 0. Key Concepts of SAT
+## Key Concepts of SAT
 
 The Separating Axis Theorem (SAT) is a fundamental concept in computational geometry and is widely used for collision detection in 2D and 3D graphics, including game development in frameworks like Love2D. The theorem states that two convex shapes do not overlap if and only if there exists a line (axis) on which the projections of the two shapes do not overlap.
 
@@ -814,7 +814,7 @@ By using the Separating Axis Theorem, you can effectively detect collisions betw
 
 Bresenham's line algorithm is a well-known algorithm in computer graphics for drawing straight lines on a grid (such as a pixel-based display) efficiently. It calculates which points in a raster grid should be plotted to form a close approximation to a straight line between two points. This algorithm can be adapted for various applications, including trajectory estimation, field of vision (FOV) calculations, and entity navigation in a game built using Love2D.
 
-## 0.1 Key Concepts of Bresenham's Line Algorithm
+## Key Concepts of Bresenham's Line Algorithm
 
 1. **Integer Arithmetic**: The algorithm uses only integer addition and subtraction, making it efficient and well-suited for low-level graphics programming.
 
@@ -926,7 +926,7 @@ Bresenham's algorithm can also aid in navigation, especially for grid-based game
 
 Bresenham's line algorithm is a versatile tool that can significantly enhance your game's trajectory calculations, field of vision, and entity navigation. By implementing this algorithm in Love2D, you can create more interactive and dynamic gameplay experiences, enabling entities to respond intelligently to their environment. The efficiency of the algorithm makes it suitable for real-time applications where performance is critical.
 
-### **Law of Cosines**
+## **Law of Cosines**
 
 The Law of Cosines relates the lengths of the sides of a triangle to the cosine of one of its angles. This theorem is particularly useful for calculating the lengths of sides or angles in any triangle, not just right triangles.
 
@@ -1055,7 +1055,7 @@ Here’s a list of geometry and math theorems that can be particularly useful in
 
 These geometry and math theorems can significantly enhance your Love2D projects, helping you implement effective algorithms for collision detection, pathfinding, and graphical representations. Understanding these concepts can also improve the efficiency and functionality of your games, enabling more dynamic interactions and a better overall player experience.
 
-## 1. **Pythagorean Theorem**
+## **Pythagorean Theorem**
 
 The Pythagorean theorem is a fundamental principle in geometry that relates to the sides of a right triangle. It states that in a right triangle, the square of the length of the hypotenuse (the side opposite the right angle) is equal to the sum of the squares of the lengths of the other two sides.
 
@@ -1104,7 +1104,7 @@ end
 ### Conclusion
 The Pythagorean theorem is a versatile tool in game development and graphics programming. Its applications in calculating distances, collision detection, and movement make it essential for creating interactive and responsive game environments in Love2D. If you want to explore the next theorem or need further clarification, just let me know!
 
-## 2. **Triangle Inequality Theorem**
+## **Triangle Inequality Theorem**
 
 The Triangle Inequality Theorem states that for any triangle, the sum of the lengths of any two sides must be greater than the length of the remaining side. This theorem is fundamental in geometry and helps establish the validity of triangle configurations.
 
@@ -1160,7 +1160,7 @@ end
 ### Conclusion
 The Triangle Inequality Theorem is a fundamental concept in geometry with several practical applications in game development and physics simulations. Its role in collision detection, pathfinding, and polygon representation helps ensure that interactions between objects are accurate and realistic in Love2D projects. If you're ready to move on to the next theorem, just let me know!
 
-## 3. **Midpoint Theorem**
+## **Midpoint Theorem**
 
 The Midpoint Theorem states that the midpoint of a line segment is the point that divides the segment into two equal parts. Specifically, if you have a line segment defined by two endpoints, the coordinates of the midpoint can be calculated as the average of the coordinates of the endpoints.
 
@@ -1210,7 +1210,7 @@ end
 ### Conclusion
 The Midpoint Theorem is a valuable tool in geometry with various applications in game development and graphical programming. Its ability to calculate midpoints makes it useful for rendering, animation, collision detection, and pathfinding in Love2D projects. If you’d like to continue with the next theorem, just let me know!
 
-## 4. **Dot Product**
+## **Dot Product**
 
 The dot product (or scalar product) is an algebraic operation that takes two equal-length sequences of numbers (usually coordinate vectors) and returns a single number. It provides information about the angle between two vectors and is widely used in geometry, physics, and computer graphics.
 
@@ -1265,7 +1265,7 @@ end
 ### Conclusion
 The dot product is a powerful mathematical tool in game development, providing insights into vector relationships, angles, and projections. Its applications in collision detection, angle calculations, and lighting make it a crucial concept for working in Love2D and enhancing gameplay mechanics. If you’re ready to move on to the next theorem, just let me know!
 
-## 5. **Cross Product**
+## **Cross Product**
 
 The cross product (or vector product) is a binary operation on two vectors in three-dimensional space. It produces a third vector that is perpendicular to the plane formed by the original vectors. The magnitude of the cross product is related to the area of the parallelogram formed by the two vectors.
 
@@ -1322,7 +1322,7 @@ The cross product is a powerful mathematical concept used primarily in 3D graphi
 
 
 
-## 6 Convex Hull
+## Convex Hull
 
 The Convex Hull is a fundamental concept in computational geometry. It refers to the smallest convex shape (or polygon) that can encompass a set of points in a plane. You can think of it as the shape formed by a tight rubber band stretched around the outermost points of a set.
 
@@ -1400,7 +1400,7 @@ end
 ### Conclusion
 The Convex Hull is a powerful tool in computational geometry with wide-ranging applications in game development, including collision detection, pathfinding, rendering, and spatial analysis. Its ability to create simplified representations of complex shapes makes it invaluable for optimizing various game mechanics and interactions in Love2D projects. If you want to explore the next concept, just let me know!
 
-## 7. Voronoi Diagrams
+## Voronoi Diagrams
 
 A Voronoi diagram is a partitioning of a plane into regions based on the distance to a specified set of points, called seeds or sites. Each region corresponds to one seed and consists of all the points closer to that seed than to any other. The edges of the regions are equidistant from the nearest seeds.
 
@@ -1459,7 +1459,7 @@ end
 ### Conclusion
 Voronoi diagrams are powerful tools in computational geometry with diverse applications in game development. They can be used for spatial partitioning, AI navigation, procedural generation, resource management, and collision detection in Love2D projects. The ability to represent relationships between points makes Voronoi diagrams invaluable for creating complex and dynamic game environments. If you’re ready for the next topic, just let me know!
 
-## 8. Pathfinding Algorithms
+## Pathfinding Algorithms
 
 Pathfinding algorithms are methods used to determine the shortest path between two points in a space while navigating obstacles and terrain. These algorithms are essential in game development for creating AI movement, navigating characters or objects, and optimizing gameplay.
 
@@ -1582,7 +1582,7 @@ end
 ### Conclusion
 Pathfinding algorithms are crucial in game development, enabling characters and entities to navigate complex environments. From AI movement to player navigation and dynamic obstacle management, these algorithms enhance gameplay experiences in Love2D projects. If you're ready to move on to the next topic, just let me know!
 
-## 9. Bézier Curves
+## Bézier Curves
 
 Bézier curves are a fundamental concept in computer graphics and geometric modeling, widely used for designing smooth curves that can be easily manipulated. They are defined using control points, which influence the shape and direction of the curve.
 
@@ -1687,7 +1687,7 @@ end
 ### Conclusion
 Bézier curves are a powerful tool in graphics and animation, providing smooth and flexible representations of curves. Their properties make them ideal for a variety of applications in game development, including motion paths, shape modeling, and UI animations in Love2D projects. If you want to explore the next topic, just let me know!
 
-## 10. Circle-Line Intersections
+## Circle-Line Intersections
 
 Circle-line intersection problems involve finding the points where a line intersects a circle. This is a common geometric operation used in physics simulations, collision detection, and graphical applications. Understanding how to calculate these intersections is essential for effective game development.
 
@@ -1825,7 +1825,7 @@ end
 ### Conclusion
 Circle-line intersection calculations are essential in many applications within game development, particularly for collision detection and physics simulations. Understanding how to efficiently compute these intersections allows for more robust and realistic interactions in Love2D projects. If you’re ready for the next topic, just let me know!
 
-## 11. Geometric Transformations
+## Geometric Transformations
 
 Geometric transformations are operations that alter the position, size, orientation, or shape of objects in a 2D space. They are fundamental in computer graphics and game development, allowing for the manipulation of objects for rendering, animation, and interaction. In Love2D, transformations are typically applied to shapes and images during rendering.
 
@@ -1979,7 +1979,7 @@ end
 ### Conclusion
 Geometric transformations are crucial for manipulating and rendering objects in 2D graphics. By understanding and applying these transformations, you can create dynamic, interactive, and visually appealing game experiences in Love2D. If you’re ready to explore the next topic, just let me know!
 
-## 12. Simplex Algorithm
+## Simplex Algorithm
 
 The Simplex algorithm is a popular method used for solving linear programming problems, which involve maximizing or minimizing a linear objective function subject to linear constraints. This algorithm is widely used in various fields, including operations research, economics, and computer science, for resource allocation, production scheduling, and optimization problems.
 
@@ -2084,7 +2084,7 @@ end
 
 The Simplex algorithm is a powerful tool for solving linear programming problems, providing optimal solutions to various real-world scenarios. Understanding the principles behind the Simplex algorithm can be beneficial in numerous applications, especially when working with optimization problems. If you're ready for the next topic or have any specific questions, just let me know!
 
-## 13. Raycasting
+## Raycasting
 
 Raycasting is a computational technique used in graphics, physics, and game development to determine the intersection of a ray (a straight line defined by an origin and direction) with objects in a space. It is particularly useful for rendering scenes, collision detection, and simulating various phenomena, such as light or sound propagation. Raycasting can be thought of as a simpler form of ray tracing, focusing primarily on visibility and collision rather than generating photorealistic images.
 
@@ -2214,7 +2214,7 @@ end
 
 Raycasting is a versatile technique essential for many applications in computer graphics and game development. It enables efficient detection of intersections and visibility, which are critical for rendering and game mechanics. Understanding raycasting can significantly enhance your ability to create interactive and visually rich experiences in Love2D and other environments. If you’d like to discuss another topic or have any questions about raycasting, just let me know!
 
-## 14. Polygon Clipping Algorithms
+## Polygon Clipping Algorithms
 
 Polygon clipping algorithms are techniques used to determine the visible portion of a polygon that lies within a specified clipping area or viewport. These algorithms are essential in computer graphics, game development, and geometric computing, as they help manage rendering efficiency by excluding parts of polygons that are outside the view. Common applications include rendering scenes, UI management, and collision detection.
 
@@ -2393,7 +2393,7 @@ end
 
 Polygon clipping algorithms are crucial for efficiently managing the visibility and rendering of polygons in graphics applications. By utilizing techniques like the Sutherland-Hodgman algorithm, developers can enhance rendering performance and ensure that only relevant portions of objects are processed. If you have any specific questions or want to discuss another topic, feel free to ask!
 
-## 15. Basic Statistics Algorithms
+## Basic Statistics Algorithms
 
 Basic statistics involves collecting, analyzing, interpreting, presenting, and organizing data. In the context of programming and game development, statistical algorithms are essential for various tasks, including data analysis, machine learning, AI decision-making, and gameplay balancing. Here are some common statistical concepts and algorithms relevant to programming, particularly in Love2D and game development:
 
