@@ -2,7 +2,7 @@
    - TODO
 
 # 2. Geometry Theorems:
-   - [Separating Axis Theorem](##-0.-Key-Concepts-of-SAT)
+   - [Separating Axis Theorem](#-0.-Key-Concepts-of-SAT)
    - [Bresenham Lines](##0.1-Key-Concepts-of-Bresenham's-Line-Algorithm)
    - [Pythagorean Theorem](##1.-**Pythagorean-Theorem**)
    - [Triangle Inequality Theorem](##2.-**Triangle-Inequality-Theorem**)
