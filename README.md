@@ -4,6 +4,10 @@ notes, codes, links, references of my discombobulated software development learn
 
 ## **_CONTENT_**
 
+**DISCLAIMER**
+
+Some of the content in this repository was generated with the assistance of OpenAI's language model. They will be grouped into the References folder.
+
 - Dusker: Roguelike prototype using Python3 and tcod.
 
 - Grey_Hack: Useful GreyScript source codes.
