@@ -34,6 +34,7 @@
 # 3. Methods and stuff
  - [Flow and Scope](#flow-and-scope)
  - [Data parsing and HTTP sockets](#data-parsing-and-http)
+ - [Window getMode](#window-getnode)
 
 [Big O Notations](#big-o-notation)
 
@@ -5462,5 +5463,164 @@ To mitigate these issues while still using Love2D for your project, consider the
 - **External Services**: Consider using a dedicated server or service for data fetching and processing, which can communicate with your Love2D application to offload network handling.
 
 By addressing these potential inefficiencies, you can create a smoother and more efficient experience in your Love2D projects. If you have more specific scenarios in mind, let me know, and I can provide tailored advice!
+
+[back to index](#index)
+
+# Window getMode
+
+Yes, there are a few different ways to store the `width`, `height`, and `flags` returned by `love.window.getMode()`, depending on your design preferences and how you'd like to use them throughout your code.
+
+### 1. **Storing them as global variables:**
+
+You can store `width`, `height`, and `flags` as global variables by defining them outside of any functions. This way, they can be accessed from any part of the code.
+
+```lua
+-- Define global variables
+windowWidth, windowHeight, windowFlags = 0, 0, {}
+
+function love.load()
+    -- Get the current window dimensions and flags
+    windowWidth, windowHeight, windowFlags = love.window.getMode()
+
+    -- Apply the offsets and set the new window size
+    local offsetWidth = windowWidth - 10
+    local offsetHeight = windowHeight - 30
+    love.window.setMode(offsetWidth, offsetHeight, { resizable = true })
+end
+
+function love.update(dt)
+    -- Access windowWidth, windowHeight here if needed
+end
+
+function love.draw()
+    -- Use windowWidth, windowHeight for drawing
+end
+```
+
+#### Explanation:
+- **Global variables**: `windowWidth`, `windowHeight`, and `windowFlags` are defined at the top of the script. These variables can be updated within `love.load()` or elsewhere and used throughout your code.
+- **Accessible everywhere**: You can access these variables in any part of your program since they are globally available.
+
+### 2. **Storing them inside a table:**
+
+You can store the window information inside a table, keeping the related data grouped together. This keeps your global namespace clean and organized.
+
+```lua
+-- Create a table to store window properties
+window = {}
+
+function love.load()
+    -- Store width, height, and flags in the 'window' table
+    window.width, window.height, window.flags = love.window.getMode()
+
+    -- Apply offsets and adjust the window size
+    local offsetWidth = window.width - 10
+    local offsetHeight = window.height - 30
+    love.window.setMode(offsetWidth, offsetHeight, { resizable = true })
+end
+
+function love.update(dt)
+    -- You can access window.width, window.height, and window.flags here
+end
+
+function love.draw()
+    -- Draw using window.width and window.height
+    love.graphics.print("Window Width: " .. window.width, 10, 10)
+    love.graphics.print("Window Height: " .. window.height, 10, 30)
+end
+```
+
+#### Explanation:
+- **Table-based storage**: Instead of creating three separate global variables, the window properties are stored in a table called `window`. This helps group the values together and avoid clutter in the global space.
+- **Access with `window.width` and `window.height`**: You can access these values through the table, keeping the organization cleaner.
+
+### 3. **Encapsulating in a module:**
+
+If your project is growing larger and you're using multiple files or want to keep your code modular, you can create a module to manage the window properties.
+
+#### `window.lua` (module)
+```lua
+local window = {}
+
+function window.load()
+    -- Store width, height, and flags in the 'window' table
+    window.width, window.height, window.flags = love.window.getMode()
+
+    -- Apply offsets and adjust the window size
+    local offsetWidth = window.width - 10
+    local offsetHeight = window.height - 30
+    love.window.setMode(offsetWidth, offsetHeight, { resizable = true })
+end
+
+return window
+```
+
+#### `main.lua`
+```lua
+-- Require the window module
+local window = require("window")
+
+function love.load()
+    -- Load the window properties
+    window.load()
+end
+
+function love.update(dt)
+    -- Use window.width and window.height here
+end
+
+function love.draw()
+    -- Draw using the window module
+    love.graphics.print("Window Width: " .. window.width, 10, 10)
+    love.graphics.print("Window Height: " .. window.height, 10, 30)
+end
+```
+
+#### Explanation:
+- **Modular approach**: By creating a separate `window.lua` module, you keep the window-related code organized and separate from the rest of the game logic.
+- **Requiring the module**: In `main.lua`, you can require the `window` module and use its properties.
+
+### 4. **Using `love.resize()` to update the values:**
+
+Another approach is to update these values dynamically in the `love.resize()` function, so that you always have the latest window dimensions if the window is resized by the user.
+
+```lua
+-- Create global variables for window dimensions
+windowWidth, windowHeight, windowFlags = 0, 0, {}
+
+function love.load()
+    -- Initialize the window dimensions
+    windowWidth, windowHeight, windowFlags = love.window.getMode()
+
+    -- Set the window size with offsets
+    local offsetWidth = windowWidth - 10
+    local offsetHeight = windowHeight - 30
+    love.window.setMode(offsetWidth, offsetHeight, { resizable = true })
+end
+
+function love.resize(w, h)
+    -- Update the global variables with the new window size
+    windowWidth, windowHeight = w, h
+end
+
+function love.draw()
+    -- Use windowWidth and windowHeight for drawing
+    love.graphics.print("Window Width: " .. windowWidth, 10, 10)
+    love.graphics.print("Window Height: " .. windowHeight, 10, 30)
+end
+```
+
+#### Explanation:
+- **Update dynamically on resize**: `love.resize(w, h)` is called whenever the window is resized, ensuring that `windowWidth` and `windowHeight` are always up-to-date.
+- **Single initialization**: You only initialize `windowWidth`, `windowHeight`, and `windowFlags` once in `love.load()` and update them whenever the window is resized.
+
+### Conclusion:
+
+- **Global variables**: Useful for quick access across your program but can get messy in larger projects.
+- **Tables**: Keep related data grouped together and reduce global namespace pollution.
+- **Modules**: Perfect for larger projects where you want to organize code into different files.
+- **Dynamic updates in `love.resize()`**: Ensures the values are always correct if the window is resized after initialization.
+
+Which method works best depends on the structure and scale of your project, but these should give you flexibility to organize window-related data in a way that fits your needs.
 
 [back to index](#index)
