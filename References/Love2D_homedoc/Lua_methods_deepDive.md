@@ -34,7 +34,7 @@
 # 3. Methods and stuff
  - [Flow and Scope](#flow-and-scope)
  - [Data parsing and HTTP sockets](#data-parsing-and-http)
- - [Window getMode](#window-getnode)
+ - [Window getMode](#window-getmode)
 
 [Big O Notations](#big-o-notation)
 
