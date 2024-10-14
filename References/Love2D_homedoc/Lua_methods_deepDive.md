@@ -11,6 +11,7 @@
 - [Matrices](#matrices)
 - [Priority Queues](#priority-queues)
 - [Tries](#tries)
+- [Conclusion, Flow, and Core functions](#conclusion)
 
 # 2. Math Theorems
 - [Separating Axis Theorem](#key-concepts-of-sat)
@@ -117,7 +118,8 @@ Here’s a list of fundamental data structures and their potential applications 
      - **Text Autocompletion**: For implementing systems that need to search and autocomplete text efficiently.
      - **Word Games**: Used in games that involve checking for words or managing dictionary lookups.
 
-## Arrays and Dictionaries
+# Arrays and Dictionaries
+[back to index](#index)
 
 In Lua, both arrays and dictionaries are implemented using **tables**, making them incredibly versatile. Here's a breakdown of their structure and applications, starting with the fundamentals and their combined use in Lua and Love2D.
 
@@ -213,11 +215,10 @@ print(gameData.settings.volume) -- Output: 0.8
 - **Dictionaries** are key-value pairs and are ideal for storing more complex relationships between data, like object properties or configuration settings.
 - You can combine both approaches in Lua tables to achieve flexible and powerful data structures for handling various aspects of game logic in Love2D.
 
-This versatility is one of the reasons Lua’s table system is well-suited for game development.
-
 In Love2D, tables are versatile and can represent almost all of these structures with some adjustments, making them an essential part of how data structures are implemented in Lua and Love2D. The choice of which structure to use depends on the game's requirements, such as the need for fast access, insertions, or memory optimization.
 
-## **Queues**
+# **Queues**
+[back to index](#index)
 
 A **queue** is a data structure that follows the **FIFO** (First In, First Out) principle. The first element added is the first one to be removed, much like a line at a store. Lua doesn’t have a built-in queue structure, but you can easily implement one using tables.
 
@@ -370,7 +371,8 @@ Queues are useful in many game scenarios, especially when you need to handle a s
 
 Understanding and implementing queues can help manage complex sequences in games, keeping them orderly and efficient.
 
-### **Stacks in Lua**
+# **Stacks in Lua**
+[back to index](#index)
 
 A **stack** is a data structure that operates on the **LIFO** (Last In, First Out) principle. The last element added to the stack is the first one to be removed, similar to a stack of plates where you always take the top plate first.
 
@@ -515,7 +517,8 @@ Stacks are widely used in game development for scenarios that require backtracki
 
 Understanding and utilizing stacks in your projects can give you powerful control over game flow and logic management.
 
-## **Listed Links**
+# **Listed Links**
+[back to index](#index)
 
 A **linked list** is a fundamental data structure consisting of a sequence of elements, where each element (commonly called a "node") contains data and a reference (or "pointer") to the next node in the sequence. Unlike arrays, linked lists are dynamic in size and allow for efficient insertions and deletions without reorganizing the entire structure.
 
@@ -992,7 +995,8 @@ Linked lists may not be as common as arrays in Lua, but they can still be useful
 
 Understanding linked lists can help you manage dynamic, frequently changing data in games where flexibility is key.
 
-## **Graphs**
+# **Graphs**
+[back to index](#index)
 
 A **graph** is a data structure made up of **nodes** (also called vertices) and **edges** that connect pairs of nodes. Graphs can be used to represent various systems, such as networks, relationships, paths, or even game maps.
 
@@ -1164,7 +1168,8 @@ Graphs are essential for many types of game mechanics, especially in pathfinding
 
 Graphs provide a powerful framework for handling relationships and interactions in games, making them essential for complex game mechanics and systems.
 
-## **Trees**
+# **Trees**
+[back to index](#index)
 
 A **tree** is a special type of graph that has a hierarchical structure, with nodes connected in such a way that there is exactly one path between any two nodes. Trees are a foundational data structure used in various computational problems, from sorting and searching to organizing information in a hierarchical manner.
 
@@ -1317,7 +1322,8 @@ end
 - In **Love2D**, trees are useful for modeling **scene graphs**, **state machines**, **AI behaviors**, and **spatial partitioning**.
 - Trees can offer efficient searching and organization, but their complexity can vary based on the type of tree and balancing requirements.
 
-## **Heaps**
+# **Heaps**
+[back to index](#index)
 
 A **heap** is a specialized tree-based data structure that satisfies the **heap property**. Heaps are commonly used to implement priority queues, where elements are prioritized according to their values. There are two main types of heaps:
 
@@ -1444,7 +1450,8 @@ Heaps are versatile data structures that have various applications:
 
 Heaps are powerful data structures that are especially useful in scenarios where priorities matter, making them essential for many algorithms and applications in computer science.
 
-## **Sets**
+# **Sets**
+[back to index](#index)
 
 A **set** is an abstract data type that represents a collection of unique elements, without any particular order. Sets are often used to manage collections of items where duplicates are not allowed, and they provide efficient operations for adding, removing, and checking for membership of elements.
 
@@ -1582,7 +1589,8 @@ Sets are useful in various scenarios, including:
 
 Sets provide a powerful way to manage collections of unique items and are essential in many programming tasks, particularly when dealing with large datasets or complex algorithms.
 
-## **Matrices**
+# **Matrices**
+[back to index](#index)
 
 A **matrix** is a two-dimensional array of numbers arranged in rows and columns. Matrices are fundamental in various fields, including mathematics, physics, computer science, and data analysis. They are widely used for representing linear transformations, solving systems of linear equations, and performing operations in graphics programming.
 
@@ -1769,7 +1777,8 @@ Matrices have numerous applications across various domains:
 
 Matrices are a foundational concept in mathematics and computer science, enabling a wide range of applications and operations essential for many fields.
 
-## **Priority Queues**
+# **Priority Queues**
+[back to index](#index)
 
 A **priority queue** is an abstract data type similar to a regular queue but with an added feature: each element is associated with a priority. Elements with higher priority are dequeued before those with lower priority. If two elements have the same priority, they are processed according to their order in the queue (FIFO).
 
@@ -1921,7 +1930,8 @@ Priority queues are widely used in various applications, including:
 
 Priority queues are an essential data structure in many programming and algorithmic scenarios, providing an effective way to manage elements based on their priorities.
 
-## **Tries**
+# **Tries**
+[back to index](#index)
 
 A **trie** (pronounced "try") is a tree-like data structure that is used to store a dynamic set of strings, where the keys are usually strings. It is particularly useful for tasks like autocomplete, spell checking, and prefix matching. Each node in a trie represents a single character of a string, and the path from the root to a node represents the prefix of the string formed by concatenating the characters along the path.
 
@@ -2071,6 +2081,8 @@ Tries are an essential data structure for efficiently managing sets of strings a
 _DATA STRUCTURES END
 
 Here's a comprehensive review of all Lua methods and Love2D-specific functions used throughout the conversation:
+
+# Conclusion
 
 ### **Lua Methods** (General to Lua)
 1. **`math.sqrt()`**: Computes the square root of a number.
