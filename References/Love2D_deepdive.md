@@ -6628,3 +6628,98 @@ end
 This setup encapsulates particle creation in the `graphicEntityFactory`, generating explosion effects when objects collide (e.g., projectiles hitting asteroids). The particle systems are efficiently managed by updating and removing them when they are no longer needed.
 
 You can further customize the particle system’s behavior (color, size, shape, etc.) to create different effects (smoke, fire, etc.) based on the type of collision or entity interaction.
+
+## CALLBACK FUNCTIONS
+
+LÖVE2D provides several **callback functions** specifically for handling physics and collision events when using its **Box2D** physics module. These callbacks allow you to manage what happens when two physics bodies (fixtures) interact, such as during collisions. Here’s a breakdown of the **physics/collision-related callbacks** and what each one does:
+
+### 1. **`beginContact`**
+   - **Description**: Called when two fixtures first begin to collide.
+   - **Signature**: `function beginContact(fixtureA, fixtureB, contact)`
+   - **Parameters**:
+     - `fixtureA`: The first fixture involved in the collision.
+     - `fixtureB`: The second fixture involved in the collision.
+     - `contact`: The `Contact` object representing the collision.
+   - **Purpose**: Use this callback to define what happens **when a collision starts**. For example, you might reduce health, trigger particle effects, or play sound effects when objects first collide.
+   - **Example**:
+     ```lua
+     function beginContact(fixtureA, fixtureB, contact)
+         local userDataA = fixtureA:getUserData()
+         local userDataB = fixtureB:getUserData()
+         if userDataA == "Player" and userDataB == "Asteroid" then
+             print("Player hit an asteroid!")
+         end
+     end
+     ```
+
+### 2. **`endContact`**
+   - **Description**: Called when two fixtures stop colliding.
+   - **Signature**: `function endContact(fixtureA, fixtureB, contact)`
+   - **Parameters**:
+     - `fixtureA`: The first fixture involved in the collision.
+     - `fixtureB`: The second fixture involved in the collision.
+     - `contact`: The `Contact` object representing the collision.
+   - **Purpose**: This is used to define what happens **when a collision ends**. For example, if the player stops touching a platform or an object, you might stop certain effects or reset states (e.g., no longer taking damage or stop sliding).
+   - **Example**:
+     ```lua
+     function endContact(fixtureA, fixtureB, contact)
+         local userDataA = fixtureA:getUserData()
+         local userDataB = fixtureB:getUserData()
+         if userDataA == "Player" and userDataB == "Ground" then
+             print("Player left the ground.")
+         end
+     end
+     ```
+
+### 3. **`preSolve`**
+   - **Description**: Called just **before** a collision is resolved.
+   - **Signature**: `function preSolve(fixtureA, fixtureB, contact)`
+   - **Parameters**:
+     - `fixtureA`: The first fixture involved in the collision.
+     - `fixtureB`: The second fixture involved in the collision.
+     - `contact`: The `Contact` object representing the collision.
+   - **Purpose**: Use `preSolve` to modify the collision **before** the physics engine calculates its outcome. For example, you can ignore the collision (using `contact:setEnabled(false)`), change the friction, or adjust restitution (bounciness). This is useful for custom collision rules.
+   - **Example**:
+     ```lua
+     function preSolve(fixtureA, fixtureB, contact)
+         local userDataA = fixtureA:getUserData()
+         local userDataB = fixtureB:getUserData()
+         if userDataA == "Player" and userDataB == "BouncyObject" then
+             contact:setRestitution(1.0)  -- Make the player bounce more when hitting this object.
+         end
+     end
+     ```
+
+### 4. **`postSolve`**
+   - **Description**: Called just **after** a collision has been resolved by the physics engine.
+   - **Signature**: `function postSolve(fixtureA, fixtureB, contact, normalImpulse, tangentImpulse)`
+   - **Parameters**:
+     - `fixtureA`: The first fixture involved in the collision.
+     - `fixtureB`: The second fixture involved in the collision.
+     - `contact`: The `Contact` object representing the collision.
+     - `normalImpulse`: The magnitude of the impulse applied perpendicular to the contact surface.
+     - `tangentImpulse`: The magnitude of the impulse applied parallel to the contact surface.
+   - **Purpose**: Use `postSolve` to react to the collision **after it has been resolved** by the physics engine. You can use the impulses to determine the strength of the collision and trigger effects or change game states based on the intensity of the impact (e.g., strong collisions cause more damage).
+   - **Example**:
+     ```lua
+     function postSolve(fixtureA, fixtureB, contact, normalImpulse, tangentImpulse)
+         local userDataA = fixtureA:getUserData()
+         local userDataB = fixtureB:getUserData()
+         if userDataA == "Player" and userDataB == "Wall" then
+             if normalImpulse > 50 then
+                 print("Player hit the wall hard!")
+             end
+         end
+     end
+     ```
+
+---
+
+### Summary of Physics/Collision Callbacks
+
+1. **`beginContact`**: Called when two fixtures begin to collide. Use this to trigger events or effects as soon as a collision starts.
+2. **`endContact`**: Called when two fixtures stop colliding. Use this to clean up or stop effects when a collision ends.
+3. **`preSolve`**: Called before a collision is resolved. Modify collision properties (e.g., friction, restitution), or disable the collision altogether here.
+4. **`postSolve`**: Called after the collision has been resolved by the physics engine. You can react to the collision based on the magnitude of the impulses.
+
+These callbacks are essential for fine-tuning how objects interact in your game. By using them, you can create complex and realistic behaviors for collisions, such as calculating damage, triggering particle effects, or changing how objects bounce or slide after they collide.
