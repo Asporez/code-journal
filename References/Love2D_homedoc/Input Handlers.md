@@ -1,7 +1,8 @@
 # Input Handlers
+## Index
 
 * [Terminal](#terminal)
-
+* [Input Handling](#input-handling)
 
 
 # Terminal
@@ -267,4 +268,170 @@ Absolutely! Here’s a list of the technical terms for the types of functions an
 By researching these terms, you’ll gain a better understanding of how to implement each part of your terminal. If you have any specific areas you’d like more guidance on, feel free to ask!
 
 # Input Handling
-[back to index](#input-handlers)
+[back to index](#index)
+
+In Love2D, handling input from the keyboard, mouse, and other devices is essential for creating interactive applications. Below are the main ways Love2D registers input and how you can structure your input handling system in a separate module for better organization and encapsulation.
+
+### Input Registration in Love2D
+
+1. **Keyboard Input**
+   - **`love.keypressed(key)`**: Called when a key is pressed. You can use this to handle actions like moving a character or toggling menus.
+   - **`love.keyreleased(key)`**: Called when a key is released. This can be useful for stopping an action when the key is no longer pressed.
+   - **`love.textinput(text)`**: Called when a character is typed. This is useful for capturing text input in fields, like in your terminal.
+
+2. **Mouse Input**
+   - **`love.mousepressed(x, y, button)`**: Called when a mouse button is pressed. You can check the mouse position and which button was pressed to interact with objects on the screen.
+   - **`love.mousereleased(x, y, button)`**: Called when a mouse button is released.
+   - **`love.mousemoved(x, y, dx, dy, istouch)`**: Called when the mouse is moved, useful for tracking cursor movement.
+
+3. **Gamepad Input**
+   - **`love.joystickpressed(joystick, button)`**: Called when a joystick button is pressed.
+   - **`love.joystickreleased(joystick, button)`**: Called when a joystick button is released.
+   - **`love.joystickaxis(joystick, axis, value)`**: Called when a joystick axis is moved.
+
+### Structuring Input Handling in a Separate Module
+
+To encapsulate input handling in its own module, you can create a new Lua file (e.g., `input.lua`) that will manage all input-related functions and state. Here’s how to do it step by step:
+
+#### **1. Create the Input Module**
+
+Create a file named `input.lua` in your project directory. In this file, you can define the necessary functions and state to manage input.
+
+```lua
+-- input.lua
+
+local Input = {}
+
+-- Table to store the state of keys
+Input.keyState = {}
+
+-- Initialize the input system
+function Input.load()
+    -- You can initialize any variables here if needed
+end
+
+-- Called when a key is pressed
+function Input.keypressed(key)
+    Input.keyState[key] = true -- Mark the key as pressed
+end
+
+-- Called when a key is released
+function Input.keyreleased(key)
+    Input.keyState[key] = false -- Mark the key as released
+end
+
+-- Called when text input occurs
+function Input.textinput(text)
+    -- Handle text input (e.g., for a terminal)
+end
+
+-- Function to check if a key is pressed
+function Input.isKeyPressed(key)
+    return Input.keyState[key] or false
+end
+
+return Input
+```
+
+**Explanation**:
+- The `Input` table encapsulates all input-related functions and variables.
+- The `keyState` table keeps track of which keys are currently pressed.
+- The `load()` function can initialize variables or settings for input.
+- The `keypressed()` and `keyreleased()` functions update the `keyState` table.
+- The `isKeyPressed()` function allows other modules to easily check the state of specific keys.
+
+#### **2. Load the Input Module in Main**
+
+In your `main.lua`, load the input module and set up the necessary callbacks.
+
+```lua
+-- main.lua
+
+local Input = require("input")
+
+function love.load()
+    Input.load() -- Initialize the input module
+end
+
+function love.keypressed(key)
+    Input.keypressed(key) -- Pass keypresses to the input module
+end
+
+function love.keyreleased(key)
+    Input.keyreleased(key) -- Pass key releases to the input module
+end
+
+function love.textinput(text)
+    Input.textinput(text) -- Pass text input to the input module
+end
+
+function love.update(dt)
+    -- You can check input states here if needed
+    if Input.isKeyPressed("space") then
+        -- Do something when the space key is pressed
+    end
+end
+```
+
+**Explanation**:
+- The `input.lua` module is required at the top of `main.lua`.
+- The `love.keypressed()`, `love.keyreleased()`, and `love.textinput()` functions are redirected to the input module to keep input handling centralized.
+- The `love.update()` function can utilize the `isKeyPressed()` method to respond to key presses as needed.
+
+#### **3. Expanding the Input Module**
+
+You can expand the `input.lua` module to include mouse and gamepad input as well. Here’s an example of how you can do that:
+
+```lua
+-- input.lua
+
+local Input = {}
+
+Input.keyState = {}
+Input.mouseState = {}
+Input.mouseX, Input.mouseY = 0, 0
+
+function Input.load()
+    -- Initialize input states if necessary
+end
+
+function Input.keypressed(key)
+    Input.keyState[key] = true
+end
+
+function Input.keyreleased(key)
+    Input.keyState[key] = false
+end
+
+function Input.textinput(text)
+    -- Handle text input
+end
+
+function Input.mousepressed(x, y, button)
+    Input.mouseState[button] = true
+end
+
+function Input.mousereleased(x, y, button)
+    Input.mouseState[button] = false
+end
+
+function Input.mousemoved(x, y, dx, dy, istouch)
+    Input.mouseX, Input.mouseY = x, y
+end
+
+function Input.isKeyPressed(key)
+    return Input.keyState[key] or false
+end
+
+function Input.isMousePressed(button)
+    return Input.mouseState[button] or false
+end
+
+return Input
+```
+
+### **Conclusion**
+
+By organizing your input handling in a separate module, you encapsulate all the input-related logic, making your main program cleaner and easier to manage. You can expand the module as needed to include additional features, such as handling mouse movement, storing mouse states, or even handling gamepad input.
+
+If you have any questions or want to dive deeper into any specific part, feel free to ask!

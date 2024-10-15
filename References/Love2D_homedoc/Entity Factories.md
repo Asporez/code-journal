@@ -131,3 +131,136 @@ Here are the methods used in the provided code:
 
 This combination allows pixel creation, updating, and rendering on the screen with varying colors and transparencies.
 
+# MINMAX AGAIN HERE!!?!?
+
+Absolutely! AI in a game doesn't have to be limited to NPCs; it can also represent devices or systems, such as a fuel cell that manages energy or a radio signal emitter that influences gameplay. These AI systems can still utilize algorithms like Minimax with Alpha-Beta pruning to optimize their behaviors based on their interactions with the player or the game environment.
+
+### **Example Scenario**
+Let's create a simple hypothetical scenario in a Love2D game where two entities, **FuelCell** and **SignalEmitter**, interact with each other. The FuelCell can provide energy to the SignalEmitter, and the SignalEmitter emits signals that can affect the FuelCell's efficiency. 
+
+We'll use the Minimax algorithm with Alpha-Beta pruning to determine the best action for each entity during their turn.
+
+### **Hypothetical Entities**
+1. **FuelCell**:
+   - Generates energy.
+   - Can be boosted or hindered by the SignalEmitter.
+
+2. **SignalEmitter**:
+   - Emits signals to influence the FuelCell's performance.
+   - Can boost or disrupt energy generation.
+
+### **Implementation in Love2D**
+Below is a simplified example of how to implement a Minimax algorithm with Alpha-Beta pruning in Love2D. This example won't be a complete game, but it will illustrate the concepts.
+
+```lua
+-- main.lua
+
+local function minimax(node, depth, isMaximizing, alpha, beta)
+    if depth == 0 or node:isTerminal() then
+        return node:evaluate() -- Evaluate the node
+    end
+
+    if isMaximizing then
+        local maxEval = -math.huge
+        for _, child in ipairs(node:getChildren()) do
+            local eval = minimax(child, depth - 1, false, alpha, beta)
+            maxEval = math.max(maxEval, eval)
+            alpha = math.max(alpha, eval)
+            if beta <= alpha then
+                break -- Beta cut-off
+            end
+        end
+        return maxEval
+    else
+        local minEval = math.huge
+        for _, child in ipairs(node:getChildren()) do
+            local eval = minimax(child, depth - 1, true, alpha, beta)
+            minEval = math.min(minEval, eval)
+            beta = math.min(beta, eval)
+            if beta <= alpha then
+                break -- Alpha cut-off
+            end
+        end
+        return minEval
+    end
+end
+
+-- Hypothetical game node class representing the game state
+local GameNode = {}
+GameNode.__index = GameNode
+
+function GameNode:new(state)
+    local obj = { state = state, children = {} }
+    setmetatable(obj, self)
+    return obj
+end
+
+function GameNode:isTerminal()
+    -- Check if the game state is terminal (game over)
+    return self.state.isGameOver
+end
+
+function GameNode:evaluate()
+    -- Evaluate the state and return a score
+    return self.state.score
+end
+
+function GameNode:getChildren()
+    -- Generate child nodes based on possible actions
+    return self.children
+end
+
+-- Create initial game state
+local initialState = {
+    isGameOver = false,
+    score = 0 -- Placeholder score
+}
+
+-- Example function to simulate game state changes
+local function simulateGame()
+    local root = GameNode:new(initialState)
+
+    -- Create child nodes with hypothetical game states
+    for i = 1, 3 do
+        local childState = {
+            isGameOver = false,
+            score = math.random(-10, 10) -- Random score for illustration
+        }
+        local childNode = GameNode:new(childState)
+        table.insert(root.children, childNode)
+    end
+
+    -- Run Minimax with Alpha-Beta pruning
+    local bestValue = minimax(root, 3, true, -math.huge, math.huge)
+    print("Best Value:", bestValue)
+end
+
+function love.load()
+    simulateGame()
+end
+
+function love.draw()
+    love.graphics.print("Check the console for the Minimax result!", 10, 10)
+end
+```
+
+### **Explanation of the Code**
+1. **Minimax Function**: The `minimax` function takes the current node (game state), the depth of the tree, whether the maximizing player is to move, and the alpha-beta values. It evaluates the best possible score for the maximizing player while pruning branches that won’t provide a better outcome.
+
+2. **GameNode Class**: Represents the game state. It has methods to check if the state is terminal, evaluate the score, and retrieve possible child nodes.
+
+3. **simulateGame Function**: This function initializes the game state, creates child nodes with random scores, and runs the Minimax algorithm.
+
+4. **love.load**: This Love2D function initializes the game by calling `simulateGame`.
+
+5. **love.draw**: Displays a message to the screen indicating that the results can be found in the console.
+
+### **Customization**
+You can extend this example by:
+- Defining specific actions for the **FuelCell** and **SignalEmitter**.
+- Creating more complex game states and evaluation logic.
+- Adding real game mechanics based on how these entities interact.
+
+### **Conclusion**
+Using Minimax with Alpha-Beta pruning allows your entities, whether NPCs or devices, to make informed decisions based on the current game state. This approach not only makes your AI more competitive but also provides a framework for various strategies depending on the game's design. Feel free to adapt this example to suit the specific needs of your project in Love2D!
+
