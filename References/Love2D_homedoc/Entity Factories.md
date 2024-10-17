@@ -264,3 +264,170 @@ You can extend this example by:
 ### **Conclusion**
 Using Minimax with Alpha-Beta pruning allows your entities, whether NPCs or devices, to make informed decisions based on the current game state. This approach not only makes your AI more competitive but also provides a framework for various strategies depending on the game's design. Feel free to adapt this example to suit the specific needs of your project in Love2D!
 
+We can achieve the turret aiming system by making each turret on a hardpoint rotate towards the mouse cursor, each with its own turn speed. To visualize where each turret is aiming, we’ll draw dots at varying distances (100 to 400 pixels) along the turret's current facing direction.
+
+Here's how we can implement this:
+
+### 1. **Updating `hardwareModule.lua` for Turrets**
+
+We’ll add logic for turret modules to rotate towards the mouse cursor and allow a different turn speed for each turret based on the hardpoint.
+
+```lua
+local hardwareModule = {}
+hardwareModule.__index = hardwareModule
+
+-- Constructor for creating a new hardware module (turrets)
+function hardwareModule.new(name, type, hardpointType, turnSpeed)
+    local self = setmetatable({}, hardwareModule)
+
+    self.name = name
+    self.type = type  -- e.g., "weapon"
+    self.hardpointType = hardpointType  -- "external" or "internal"
+    self.turnSpeed = turnSpeed or 1  -- Different turn speeds for different hardpoints
+    self.angle = 0  -- Current turret angle (in radians)
+    self.attached = false  -- Is it attached to a hardpoint?
+
+    return self
+end
+
+-- Function to attach the module to a specific hardpoint
+function hardwareModule:attach(hardpoint)
+    if hardpoint.type == self.hardpointType then
+        self.attached = true
+        self.hardpoint = hardpoint  -- Store reference to the hardpoint
+        print(self.name .. " attached to hardpoint: " .. hardpoint.name)
+    else
+        print("Error: Cannot attach " .. self.name .. " to " .. hardpoint.name)
+    end
+end
+
+-- Update function to rotate turret towards the mouse cursor
+function hardwareModule:updateRotation(dt)
+    if self.attached then
+        local mouseX, mouseY = love.mouse.getPosition()
+        local dx = mouseX - (self.hardpoint.x + self.hardpoint.shipX)
+        local dy = mouseY - (self.hardpoint.y + self.hardpoint.shipY)
+
+        -- Desired angle towards the mouse
+        local targetAngle = math.atan2(dy, dx)
+
+        -- Gradually rotate towards the target angle based on turn speed
+        local deltaAngle = targetAngle - self.angle
+        deltaAngle = (deltaAngle + math.pi) % (2 * math.pi) - math.pi  -- Normalize the angle
+        self.angle = self.angle + math.min(math.abs(deltaAngle), self.turnSpeed * dt) * (deltaAngle < 0 and -1 or 1)
+    end
+end
+
+-- Draw where the turret is pointing (dots between 100 to 400 pixels)
+function hardwareModule:drawAim()
+    if self.attached then
+        local baseX = self.hardpoint.x + self.hardpoint.shipX
+        local baseY = self.hardpoint.y + self.hardpoint.shipY
+
+        for dist = 100, 400, 100 do
+            local dotX = baseX + math.cos(self.angle) * dist
+            local dotY = baseY + math.sin(self.angle) * dist
+            love.graphics.circle("fill", dotX, dotY, 5)
+        end
+    end
+end
+
+return hardwareModule
+```
+
+### 2. **Modifying `playerShip.lua` to Pass Ship Position**
+
+We need to ensure each hardpoint knows its ship’s position, so we pass `shipX` and `shipY` when attaching modules.
+
+```lua
+local playerShip = {}
+playerShip.__index = playerShip
+
+function playerShip.new()
+    local self = setmetatable({}, playerShip)
+    
+    -- Basic ship properties
+    self.x = 100
+    self.y = 100
+    self.width = 128
+    self.height = 256
+    self.angle = 0
+    
+    -- External hardpoints on the ship
+    self.externalHardpoints = {
+        { name = "Front Left Hardpoint", x = -50, y = -120, type = "external" },
+        { name = "Front Right Hardpoint", x = 50, y = -120, type = "external" },
+        { name = "Rear Left Hardpoint", x = -50, y = 120, type = "external" },
+        { name = "Rear Right Hardpoint", x = 50, y = 120, type = "external" }
+    }
+
+    -- Modules attached to the ship
+    self.modules = {}
+
+    return self
+end
+
+-- Attach a hardware module to a specific hardpoint
+function playerShip:attachModule(moduleName, moduleType, hardpointIndex, turnSpeed)
+    local module = hardwareModule.new(moduleName, moduleType, "external", turnSpeed)
+    local hardpoint = self.externalHardpoints[hardpointIndex]
+    hardpoint.shipX = self.x + self.width / 2  -- Pass ship's position
+    hardpoint.shipY = self.y + self.height / 2
+    module:attach(hardpoint)
+    table.insert(self.modules, module)
+end
+
+-- Update the ship and its modules
+function playerShip:update(dt)
+    for _, module in ipairs(self.modules) do
+        module:updateRotation(dt)
+    end
+end
+
+-- Draw the ship and its modules
+function playerShip:draw()
+    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+
+    -- Draw each module’s aim
+    for _, module in ipairs(self.modules) do
+        module:drawAim()
+    end
+end
+
+return playerShip
+```
+
+### 3. **Example Usage in `main.lua`**
+
+Finally, we integrate everything in `main.lua`, adding different turn speeds for each turret and drawing the ship and its modules.
+
+```lua
+local playerShip = require('src/playerShip')
+
+function love.load()
+    -- Create player ship
+    player = playerShip.new()
+
+    -- Attach turrets with different turn speeds
+    player:attachModule("Front Laser", "weapon", 1, 0.5)  -- Slow turning front left
+    player:attachModule("Right Blaster", "weapon", 2, 1)  -- Faster front right
+    player:attachModule("Rear Cannon", "weapon", 3, 0.7)  -- Moderate rear left
+    player:attachModule("Rear Laser", "weapon", 4, 0.3)  -- Very slow rear right
+end
+
+function love.update(dt)
+    player:update(dt)
+end
+
+function love.draw()
+    player:draw()
+end
+```
+
+### Summary of Key Elements:
+1. **Turret Rotation**: Each turret rotates towards the mouse cursor based on its turn speed, with slower speeds for certain hardpoints as requested.
+2. **Aim Visualization**: Dots are drawn at 100, 200, 300, and 400 pixels away from the ship in the direction each turret is pointing, visualizing their aim.
+3. **Slow Turret Turn Speed**: Each turret’s `turnSpeed` can be adjusted to suit your preference, allowing for slower rotation for easier visualization.
+
+This setup gives you full control over turret behavior and ensures the aim is clearly visible even at different speeds.
+
