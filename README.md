@@ -12,7 +12,7 @@ Some of the content in this repository was generated with the assistance of Open
 
 - Grey_Hack: Useful GreyScript source codes.
 
-- References: Self-explanatory.
+- References: SS from courses, conversations with GPT-4 about coding, code snippets and examples.
 
 - SpaceBalls: Generic Asteroids clone.
 
