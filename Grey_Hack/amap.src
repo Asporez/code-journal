@@ -1,6 +1,5 @@
 //command: nmap
 //returns ports, admin info, smtp info if port 25
-//compiled by Aspore
 
 if params.len != 1 or params[0] == "-h" or params[0] == "--help" then exit(command_info("nmap_usage"))	
 if not is_valid_ip(params[0]) then exit("nmap: invalid ip address")
